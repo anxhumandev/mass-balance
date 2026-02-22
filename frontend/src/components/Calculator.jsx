@@ -69,7 +69,7 @@ function Calculator({
   const [duplicateWarning, setDuplicateWarning] = useState(false);
   const [existingTests, setExistingTests] = useState([]);
   const [hybridConfig, setHybridConfig] = useState({
-    detection_method: 'UV + ELSD + MS + GC_MS',
+    detection_method: 'UV + ELSD + LC-MS + GC-MS',
     uv_rrf: 1.0,
     elsd_rrf: 1.0,
     ms_intensity: 1000000,
@@ -175,7 +175,7 @@ function Calculator({
       analyst_name: 'LIMS Connector'
     }));
     setHybridConfig({
-      detection_method: 'UV + ELSD + MS + GC_MS',
+      detection_method: 'UV + ELSD + LC-MS + GC-MS',
       uv_rrf: 1.0,
       elsd_rrf: 1.0,
       ms_intensity: 1000000,
@@ -318,7 +318,7 @@ function Calculator({
           analyst_name: 'LIMS Connector'
         }));
         setHybridConfig({
-          detection_method: 'UV + ELSD + MS + GC_MS',
+          detection_method: 'UV + ELSD + LC-MS + GC-MS',
           uv_rrf: 1.0,
           elsd_rrf: 1.0,
           ms_intensity: 1000000,

@@ -11,11 +11,12 @@ function calculateCompositeRRF(detectionData) {
     const {
         uv_rrf = 1.0,
         elsd_rrf = null,
-        ms_intensity = null
+        ms_intensity = null,
+        gc_ms_detected = false
     } = detectionData;
 
     // If only UV is used
-    if (!elsd_rrf && !ms_intensity) {
+    if (!elsd_rrf && !ms_intensity && !gc_ms_detected) {
         return {
             composite_rrf: uv_rrf || 1.0,
             detection_coverage_pct: 100,
@@ -41,8 +42,6 @@ function calculateCompositeRRF(detectionData) {
 
     if (ms_intensity) {
         // MS is used for ID, less for quant due to ionization variability
-        // But we include it as a minor correction factor
-        // Normalize intensity to a 0.5-2.0 range factor relative to 1E6 counts
         const msFactor = Math.min(2.0, Math.max(0.5, ms_intensity / 1e6));
         totalWeight += 0.5;
         weightedSum += (msFactor * 0.5);
@@ -50,15 +49,25 @@ function calculateCompositeRRF(detectionData) {
         detectors.ms = true;
     }
 
+    if (gc_ms_detected) {
+        // GC-MS captures volatile degradants missed by LC methods
+        // Use a fixed contribution factor of 1.0 (assumes similar response to UV baseline)
+        totalWeight += 0.5;
+        weightedSum += 0.5;
+        sources.push('GC_MS');
+        detectors.gc_ms = true;
+    }
+
     const composite_rrf = parseFloat((weightedSum / totalWeight).toFixed(2));
 
     return {
         composite_rrf,
-        detection_coverage_pct: (100 + (elsd_rrf ? 20 : 0) + (ms_intensity ? 15 : 0)), // Bonus for extra detectors
+        detection_coverage_pct: (100 + (elsd_rrf ? 20 : 0) + (ms_intensity ? 15 : 0) + (gc_ms_detected ? 15 : 0)),
         detection_sources: sources.join(' + '),
         method_completeness: assessMethodCompleteness(detectors)
     };
 }
+
 
 /**
  * Detect UV-Silent Degradants
