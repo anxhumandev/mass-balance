@@ -33,7 +33,9 @@ function HybridDetection({ onConfigChange }) {
         setDetectors(newDetectors);
 
         // Update config based on active detectors
-        const methodStr = Object.keys(newDetectors).filter(k => newDetectors[k]).join(' + ');
+        const methodStr = Object.keys(newDetectors).filter(k => newDetectors[k])
+            .map(k => k === 'MS' ? 'LC-MS' : k === 'GC_MS' ? 'GC-MS' : k)
+            .join(' + ');
 
         setDetectionConfig(prev => ({
             ...prev,
@@ -101,7 +103,7 @@ function HybridDetection({ onConfigChange }) {
                     {/* UV RRF */}
                     <div>
                         <label className="block mb-2">
-                            <span className="text-sm font-medium text-slate-300">UV Response Factor</span>
+                            <span className="text-sm font-medium text-slate-300 normal-case tracking-normal">UV Response Factor</span>
                             <input
                                 type="number"
                                 value={detectionConfig.uv_rrf}
@@ -118,7 +120,7 @@ function HybridDetection({ onConfigChange }) {
                     {isDetectorActive('ELSD') && (
                         <div>
                             <label className="block mb-2">
-                                <span className="text-sm font-medium text-slate-300">ELSD Response Factor</span>
+                                <span className="text-sm font-medium text-slate-300 normal-case tracking-normal">ELSD Response Factor</span>
                                 <input
                                     type="number"
                                     value={detectionConfig.elsd_rrf || ''}
@@ -138,7 +140,7 @@ function HybridDetection({ onConfigChange }) {
                     {isDetectorActive('MS') && (
                         <div>
                             <label className="block mb-2">
-                                <span className="text-sm font-medium text-slate-300">LC-MS Intensity (counts)</span>
+                                <span className="text-sm font-medium text-slate-300 normal-case tracking-normal">LC-MS Intensity (counts)</span>
                                 <input
                                     type="number"
                                     value={detectionConfig.ms_intensity || ''}
@@ -155,36 +157,20 @@ function HybridDetection({ onConfigChange }) {
 
                     {/* GC-MS Volatiles */}
                     {isDetectorActive('GC_MS') && (
-                        <div className="space-y-4">
-                            <div className="flex items-center gap-3">
+                        <div>
+                            <label className="block mb-2">
+                                <span className="text-sm font-medium text-slate-300 normal-case tracking-normal">Volatile Loss (%)</span>
                                 <input
-                                    type="checkbox"
-                                    checked={detectionConfig.gc_ms_detected}
-                                    onChange={(e) => handleChange('gc_ms_detected', e.target.checked)}
-                                    className="w-5 h-5 rounded border-orange-500/30 bg-slate-800/50 text-orange-500 focus:ring-2 focus:ring-orange-500/50"
+                                    type="number"
+                                    value={detectionConfig.gc_ms_volatiles}
+                                    onChange={(e) => handleChange('gc_ms_volatiles', parseFloat(e.target.value) || 0)}
+                                    step="0.1"
+                                    min="0"
+                                    max="20"
+                                    className="w-full mt-2 px-4 py-3 bg-slate-800/50 border border-orange-500/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50"
                                 />
-                                <label className="text-sm font-medium text-slate-300">
-                                    Volatile degradants detected by GC-MS
-                                </label>
-                            </div>
-
-                            {detectionConfig.gc_ms_detected && (
-                                <div>
-                                    <label className="block mb-2">
-                                        <span className="text-sm font-medium text-slate-300">Volatile Loss (%)</span>
-                                        <input
-                                            type="number"
-                                            value={detectionConfig.gc_ms_volatiles}
-                                            onChange={(e) => handleChange('gc_ms_volatiles', parseFloat(e.target.value) || 0)}
-                                            step="0.1"
-                                            min="0"
-                                            max="20"
-                                            className="w-full mt-2 px-4 py-3 bg-slate-800/50 border border-orange-500/30 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-orange-500/50"
-                                        />
-                                    </label>
-                                    <p className="text-xs text-slate-500 mt-1">Percentage of API converted to volatile products</p>
-                                </div>
-                            )}
+                            </label>
+                            <p className="text-xs text-slate-500 mt-1">Percentage of API converted to volatile products</p>
                         </div>
                     )}
 

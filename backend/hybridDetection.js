@@ -45,7 +45,7 @@ function calculateCompositeRRF(detectionData) {
         const msFactor = Math.min(2.0, Math.max(0.5, ms_intensity / 1e6));
         totalWeight += 0.5;
         weightedSum += (msFactor * 0.5);
-        sources.push('MS');
+        sources.push('LC-MS');
         detectors.ms = true;
     }
 
@@ -54,7 +54,7 @@ function calculateCompositeRRF(detectionData) {
         // Use a fixed contribution factor of 1.0 (assumes similar response to UV baseline)
         totalWeight += 0.5;
         weightedSum += 0.5;
-        sources.push('GC_MS');
+        sources.push('GC-MS');
         detectors.gc_ms = true;
     }
 

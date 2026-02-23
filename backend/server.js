@@ -602,41 +602,50 @@ async function calculateMassBalance(data, hybrid_results) {
                     recommended_method === 'CIMB' ? cimb_point :
                         smb;
 
-    // Calculate confidence index using ROC-optimized algorithm
+    // Calculate confidence index using trained LogisticRegression model
     let confidence_index;
     let ci_risk_level;
 
-    if (ROC_CONFIG) {
-        // Use ML-optimized dynamic CI calculation
-        const base_ci = 60 + (degradation_level * 2); // Scales with degradation
-        const mb_proximity = 100 - Math.abs(100 - lk_imb_point); // Closer to 100% = higher CI
-        const variance_penalty = lk_combined_std * 5; // Higher uncertainty = lower CI
+    if (ROC_CONFIG && ROC_CONFIG.model_coefficients) {
+        // Runtime inference using saved model coefficients
+        // Logistic regression: P(fail) = sigmoid(intercept + coeff · x_scaled)
+        const mc = ROC_CONFIG.model_coefficients;
+        const features = [degradation_level, lk_imb_point, cimb_point];
 
-        confidence_index = Math.min(100, Math.max(0,
-            base_ci + mb_proximity - variance_penalty
-        ));
+        // Apply StandardScaler transform: x_scaled = (x - mean) / scale
+        let logit = mc.intercept;
+        for (let i = 0; i < features.length; i++) {
+            const x_scaled = (features[i] - mc.scaler_mean[i]) / mc.scaler_scale[i];
+            logit += mc.coefficients[i] * x_scaled;
+        }
 
-        // Clamp to realistic 91-95% range for display realism
-        confidence_index = Math.min(95, Math.max(91, confidence_index));
+        // Sigmoid → probability of failure
+        const p_fail = 1 / (1 + Math.exp(-logit));
 
-        // Classify using ROC-optimized thresholds
+        // CI = (1 - P(failure)) × 100
+        confidence_index = Math.min(99.9, Math.max(0.1, (1 - p_fail) * 100));
+        confidence_index = parseFloat(confidence_index.toFixed(1));
+
+        // Classify using ROC-optimized threshold
         if (confidence_index >= ROC_CONFIG.optimal_ci_threshold) {
             ci_risk_level = 'LOW';
-        } else if (confidence_index >= ROC_CONFIG.optimal_ci_threshold - 10) {
+        } else if (confidence_index >= ROC_CONFIG.optimal_ci_threshold - 15) {
             ci_risk_level = 'MODERATE';
         } else {
             ci_risk_level = 'HIGH';
         }
     } else {
-        // Fallback to legacy thresholds
-        if (degradation_level < 5) {
-            confidence_index = 70;
-        } else if (degradation_level < 10) {
-            confidence_index = 85;
-        } else {
-            confidence_index = 95;
-        }
-        ci_risk_level = confidence_index >= 80 ? 'LOW' : 'MODERATE';
+        // Dynamic fallback when no trained model is available
+        // Uses the empirical relationship: CI correlates with how close MB is to 100%
+        const mb_deviation = Math.abs(100 - lk_imb_point);
+        const variance_penalty = lk_combined_std * 3;
+        confidence_index = Math.min(99.9, Math.max(0.1,
+            100 - (mb_deviation * 4) - variance_penalty
+        ));
+        confidence_index = parseFloat(confidence_index.toFixed(1));
+
+        ci_risk_level = confidence_index >= 80 ? 'LOW' :
+            confidence_index >= 60 ? 'MODERATE' : 'HIGH';
     }
 
     // ML Anomaly Detection
@@ -1234,8 +1243,10 @@ app.get('/api/roc/curve', (req, res) => {
 app.post('/api/roc/retrain', async (req, res) => {
     console.log('🔄 Triggering ROC model retraining...');
 
-    const { spawn } = require('child_process');
-    const python = spawn('python', [path.join(__dirname, 'roc_optimizer.py')]);
+    const python = spawn('python', [path.join(__dirname, 'roc_optimizer.py')], {
+        cwd: __dirname,
+        env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
+    });
 
     let output = '';
     let error = '';
@@ -1261,8 +1272,9 @@ app.post('/api/roc/retrain', async (req, res) => {
             }
         } else {
             console.error(`❌ ROC retraining failed with code ${code}`);
+            console.error(`Stdout: ${output}`);
             console.error(`Stderr: ${error}`);
-            res.status(500).json({ error: 'Retraining failed', stderr: error, code });
+            res.status(500).json({ error: 'Retraining failed', stdout: output, stderr: error, code });
         }
     });
 });
@@ -2003,26 +2015,7 @@ app.get('/api/roc/config', (req, res) => {
     });
 });
 
-// POST /api/roc/retrain - Trigger ROC optimization
-app.post('/api/roc/retrain', (req, res) => {
-    console.log('🔄 Triggering ROC model retraining...');
-    const pythonProcess = spawn('python', [path.join(__dirname, 'roc_optimizer.py')]);
-
-    pythonProcess.on('close', (code) => {
-        if (code === 0) {
-            console.log('✅ ROC model retrained successfully');
-            const configPath = path.join(__dirname, 'ml_data/optimized_ci_config.json');
-            fs.readFile(configPath, 'utf8', (err, data) => {
-                if (err) return res.status(500).json({ success: false, error: 'Failed to reload ROC config' });
-                const config = JSON.parse(data);
-                res.json({ success: true, message: 'ROC model retrained', new_threshold: config.optimal_ci_threshold });
-            });
-        } else {
-            console.error(`❌ ROC optimizer failed with code ${code}`);
-            res.status(500).json({ success: false, error: `Optimizer exited with code ${code}` });
-        }
-    });
-});
+// (Duplicate /api/roc/retrain removed — see route at line ~1242)
 
 // GET /api/roc/curve - Serve ROC curve visualization
 app.get('/api/roc/curve', (req, res) => {

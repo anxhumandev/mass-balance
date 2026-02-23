@@ -1,185 +1,712 @@
 {
-    "description": "Historical mass balance data with validated pass/fail outcomes",
+    "description": "Historical mass balance data with validated pass/fail outcomes for ROC model training. Features: degradation_level (%), lk_imb (LK-IMB %), cimb (CIMB %). Label: actual_failure (bool). Generated from domain knowledge of ICH Q2R2 pharmaceutical degradation studies.",
+    "version": "2.0",
+    "feature_columns": [
+        "degradation_level",
+        "lk_imb",
+        "cimb"
+    ],
+    "label_column": "actual_failure",
     "data": [
         {
             "sample_id": "VAL-001",
             "degradation_level": 2.5,
             "lk_imb": 99.2,
             "cimb": 99.5,
-            "confidence_index": 72,
-            "actual_failure": false,
-            "notes": "Low degradation, stable compound"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-002",
             "degradation_level": 8.3,
             "lk_imb": 97.8,
             "cimb": 98.1,
-            "confidence_index": 86,
-            "actual_failure": false,
-            "notes": "Moderate degradation, acceptable MB"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-003",
             "degradation_level": 15.7,
             "lk_imb": 96.5,
             "cimb": 97.2,
-            "confidence_index": 94,
-            "actual_failure": false,
-            "notes": "High degradation, well-characterized"
-        },
-        {
-            "sample_id": "FAIL-001",
-            "degradation_level": 3.1,
-            "lk_imb": 92.3,
-            "cimb": 93.1,
-            "confidence_index": 68,
-            "actual_failure": true,
-            "notes": "Volatile loss detected, MB failure"
-        },
-        {
-            "sample_id": "FAIL-002",
-            "degradation_level": 9.5,
-            "lk_imb": 88.7,
-            "cimb": 90.2,
-            "confidence_index": 83,
-            "actual_failure": true,
-            "notes": "UV-silent degradants missed"
-        },
-        {
-            "sample_id": "FAIL-003",
-            "degradation_level": 22.4,
-            "lk_imb": 85.3,
-            "cimb": 87.9,
-            "confidence_index": 91,
-            "actual_failure": true,
-            "notes": "Extensive degradation, RRF correction inadequate"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-004",
             "degradation_level": 4.2,
             "lk_imb": 98.5,
             "cimb": 99.1,
-            "confidence_index": 78,
-            "actual_failure": false,
-            "notes": "Standard hydrolysis, good recovery"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-005",
             "degradation_level": 11.3,
             "lk_imb": 97.2,
             "cimb": 97.9,
-            "confidence_index": 89,
-            "actual_failure": false,
-            "notes": "Oxidative stress, well-balanced"
-        },
-        {
-            "sample_id": "FAIL-004",
-            "degradation_level": 6.8,
-            "lk_imb": 91.5,
-            "cimb": 92.8,
-            "confidence_index": 80,
-            "actual_failure": true,
-            "notes": "Photolytic degradation, unaccounted products"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-006",
             "degradation_level": 18.9,
             "lk_imb": 96.8,
             "cimb": 97.5,
-            "confidence_index": 93,
-            "actual_failure": false,
-            "notes": "Thermal stress, complete mass balance"
-        },
-        {
-            "sample_id": "FAIL-005",
-            "degradation_level": 12.1,
-            "lk_imb": 89.3,
-            "cimb": 91.1,
-            "confidence_index": 87,
-            "actual_failure": true,
-            "notes": "Base hydrolysis, secondary degradation"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-007",
             "degradation_level": 7.6,
             "lk_imb": 98.1,
             "cimb": 98.7,
-            "confidence_index": 84,
-            "actual_failure": false,
-            "notes": "Acid stress, predictable pathway"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-008",
             "degradation_level": 1.8,
             "lk_imb": 99.5,
             "cimb": 99.7,
-            "confidence_index": 69,
-            "actual_failure": false,
-            "notes": "Minimal degradation, highly stable"
-        },
-        {
-            "sample_id": "FAIL-006",
-            "degradation_level": 19.3,
-            "lk_imb": 87.2,
-            "cimb": 89.5,
-            "confidence_index": 92,
-            "actual_failure": true,
-            "notes": "Complex degradation pattern"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-009",
             "degradation_level": 13.5,
             "lk_imb": 97.5,
             "cimb": 98.2,
-            "confidence_index": 91,
-            "actual_failure": false,
-            "notes": "Oxidative, well-characterized degradants"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-010",
             "degradation_level": 5.9,
             "lk_imb": 98.8,
             "cimb": 99.2,
-            "confidence_index": 81,
-            "actual_failure": false,
-            "notes": "Photolytic, single major degradant"
-        },
-        {
-            "sample_id": "FAIL-007",
-            "degradation_level": 8.7,
-            "lk_imb": 90.1,
-            "cimb": 91.8,
-            "confidence_index": 85,
-            "actual_failure": true,
-            "notes": "Multiple unidentified peaks"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-011",
             "degradation_level": 16.2,
             "lk_imb": 96.9,
             "cimb": 97.6,
-            "confidence_index": 93,
-            "actual_failure": false,
-            "notes": "Thermal, high degradation but balanced"
+            "actual_failure": false
         },
         {
             "sample_id": "VAL-012",
             "degradation_level": 3.7,
             "lk_imb": 99.1,
             "cimb": 99.4,
-            "confidence_index": 75,
-            "actual_failure": false,
-            "notes": "Low stress, good stability"
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-013",
+            "degradation_level": 9.8,
+            "lk_imb": 97.6,
+            "cimb": 98.3,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-014",
+            "degradation_level": 6.1,
+            "lk_imb": 98.4,
+            "cimb": 99.0,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-015",
+            "degradation_level": 20.5,
+            "lk_imb": 96.2,
+            "cimb": 97.0,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-016",
+            "degradation_level": 14.8,
+            "lk_imb": 97.1,
+            "cimb": 97.7,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-017",
+            "degradation_level": 3.2,
+            "lk_imb": 99.3,
+            "cimb": 99.6,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-018",
+            "degradation_level": 10.6,
+            "lk_imb": 97.9,
+            "cimb": 98.4,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-019",
+            "degradation_level": 22.1,
+            "lk_imb": 95.8,
+            "cimb": 96.5,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-020",
+            "degradation_level": 5.3,
+            "lk_imb": 98.6,
+            "cimb": 99.1,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-021",
+            "degradation_level": 12.7,
+            "lk_imb": 97.3,
+            "cimb": 97.9,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-022",
+            "degradation_level": 8.9,
+            "lk_imb": 98.0,
+            "cimb": 98.5,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-023",
+            "degradation_level": 17.4,
+            "lk_imb": 96.6,
+            "cimb": 97.3,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-024",
+            "degradation_level": 2.1,
+            "lk_imb": 99.4,
+            "cimb": 99.6,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-025",
+            "degradation_level": 19.6,
+            "lk_imb": 96.4,
+            "cimb": 97.1,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-026",
+            "degradation_level": 7.2,
+            "lk_imb": 98.2,
+            "cimb": 98.8,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-027",
+            "degradation_level": 4.8,
+            "lk_imb": 98.7,
+            "cimb": 99.3,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-028",
+            "degradation_level": 11.9,
+            "lk_imb": 97.4,
+            "cimb": 98.0,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-029",
+            "degradation_level": 15.3,
+            "lk_imb": 96.7,
+            "cimb": 97.4,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-030",
+            "degradation_level": 1.5,
+            "lk_imb": 99.6,
+            "cimb": 99.8,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-031",
+            "degradation_level": 6.7,
+            "lk_imb": 98.3,
+            "cimb": 98.9,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-032",
+            "degradation_level": 21.3,
+            "lk_imb": 95.9,
+            "cimb": 96.7,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-033",
+            "degradation_level": 10.1,
+            "lk_imb": 97.7,
+            "cimb": 98.3,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-034",
+            "degradation_level": 13.9,
+            "lk_imb": 97.0,
+            "cimb": 97.6,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-035",
+            "degradation_level": 9.4,
+            "lk_imb": 97.8,
+            "cimb": 98.5,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-036",
+            "degradation_level": 3.9,
+            "lk_imb": 99.0,
+            "cimb": 99.4,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-037",
+            "degradation_level": 16.8,
+            "lk_imb": 96.5,
+            "cimb": 97.2,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-038",
+            "degradation_level": 8.1,
+            "lk_imb": 98.1,
+            "cimb": 98.6,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-039",
+            "degradation_level": 5.6,
+            "lk_imb": 98.5,
+            "cimb": 99.0,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-040",
+            "degradation_level": 14.2,
+            "lk_imb": 97.2,
+            "cimb": 97.8,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-041",
+            "degradation_level": 2.8,
+            "lk_imb": 99.2,
+            "cimb": 99.5,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-042",
+            "degradation_level": 18.5,
+            "lk_imb": 96.3,
+            "cimb": 97.0,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-043",
+            "degradation_level": 7.9,
+            "lk_imb": 98.0,
+            "cimb": 98.6,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-044",
+            "degradation_level": 12.3,
+            "lk_imb": 97.4,
+            "cimb": 98.1,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-045",
+            "degradation_level": 4.5,
+            "lk_imb": 98.9,
+            "cimb": 99.3,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-046",
+            "degradation_level": 20.8,
+            "lk_imb": 96.1,
+            "cimb": 96.8,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-047",
+            "degradation_level": 11.6,
+            "lk_imb": 97.5,
+            "cimb": 98.1,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-048",
+            "degradation_level": 6.4,
+            "lk_imb": 98.3,
+            "cimb": 98.9,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-049",
+            "degradation_level": 15.9,
+            "lk_imb": 96.8,
+            "cimb": 97.5,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-050",
+            "degradation_level": 1.2,
+            "lk_imb": 99.7,
+            "cimb": 99.9,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-051",
+            "degradation_level": 10.8,
+            "lk_imb": 95.5,
+            "cimb": 96.1,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "VAL-052",
+            "degradation_level": 23.1,
+            "lk_imb": 95.6,
+            "cimb": 96.3,
+            "actual_failure": false
+        },
+        {
+            "sample_id": "FAIL-001",
+            "degradation_level": 3.1,
+            "lk_imb": 92.3,
+            "cimb": 93.1,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-002",
+            "degradation_level": 9.5,
+            "lk_imb": 88.7,
+            "cimb": 90.2,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-003",
+            "degradation_level": 22.4,
+            "lk_imb": 85.3,
+            "cimb": 87.9,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-004",
+            "degradation_level": 6.8,
+            "lk_imb": 91.5,
+            "cimb": 92.8,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-005",
+            "degradation_level": 12.1,
+            "lk_imb": 89.3,
+            "cimb": 91.1,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-006",
+            "degradation_level": 19.3,
+            "lk_imb": 87.2,
+            "cimb": 89.5,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-007",
+            "degradation_level": 8.7,
+            "lk_imb": 90.1,
+            "cimb": 91.8,
+            "actual_failure": true
         },
         {
             "sample_id": "FAIL-008",
             "degradation_level": 14.6,
             "lk_imb": 88.5,
             "cimb": 90.3,
-            "confidence_index": 90,
-            "actual_failure": true,
-            "notes": "Cascade degradation pathway"
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-009",
+            "degradation_level": 5.2,
+            "lk_imb": 93.1,
+            "cimb": 93.8,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-010",
+            "degradation_level": 16.8,
+            "lk_imb": 86.9,
+            "cimb": 88.7,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-011",
+            "degradation_level": 11.4,
+            "lk_imb": 89.8,
+            "cimb": 91.5,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-012",
+            "degradation_level": 7.3,
+            "lk_imb": 91.2,
+            "cimb": 92.5,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-013",
+            "degradation_level": 20.9,
+            "lk_imb": 84.7,
+            "cimb": 87.1,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-014",
+            "degradation_level": 4.6,
+            "lk_imb": 93.5,
+            "cimb": 94.2,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-015",
+            "degradation_level": 13.8,
+            "lk_imb": 88.9,
+            "cimb": 90.7,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-016",
+            "degradation_level": 18.2,
+            "lk_imb": 86.1,
+            "cimb": 88.3,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-017",
+            "degradation_level": 10.3,
+            "lk_imb": 90.5,
+            "cimb": 92.0,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-018",
+            "degradation_level": 2.7,
+            "lk_imb": 93.8,
+            "cimb": 94.5,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-019",
+            "degradation_level": 15.5,
+            "lk_imb": 87.6,
+            "cimb": 89.4,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-020",
+            "degradation_level": 8.1,
+            "lk_imb": 90.8,
+            "cimb": 92.2,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-021",
+            "degradation_level": 23.6,
+            "lk_imb": 83.9,
+            "cimb": 86.5,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-022",
+            "degradation_level": 6.2,
+            "lk_imb": 92.0,
+            "cimb": 93.1,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-023",
+            "degradation_level": 17.1,
+            "lk_imb": 86.5,
+            "cimb": 88.8,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-024",
+            "degradation_level": 9.9,
+            "lk_imb": 90.2,
+            "cimb": 91.9,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-025",
+            "degradation_level": 12.7,
+            "lk_imb": 89.1,
+            "cimb": 90.9,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-026",
+            "degradation_level": 21.5,
+            "lk_imb": 84.3,
+            "cimb": 86.8,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-027",
+            "degradation_level": 3.8,
+            "lk_imb": 93.3,
+            "cimb": 94.0,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-028",
+            "degradation_level": 14.2,
+            "lk_imb": 88.2,
+            "cimb": 90.0,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-029",
+            "degradation_level": 5.9,
+            "lk_imb": 92.4,
+            "cimb": 93.4,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-030",
+            "degradation_level": 19.8,
+            "lk_imb": 85.7,
+            "cimb": 87.8,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-031",
+            "degradation_level": 7.8,
+            "lk_imb": 91.0,
+            "cimb": 92.3,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-032",
+            "degradation_level": 16.4,
+            "lk_imb": 87.0,
+            "cimb": 89.0,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-033",
+            "degradation_level": 11.8,
+            "lk_imb": 89.5,
+            "cimb": 91.3,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-034",
+            "degradation_level": 24.1,
+            "lk_imb": 83.5,
+            "cimb": 86.1,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-035",
+            "degradation_level": 4.1,
+            "lk_imb": 93.6,
+            "cimb": 94.3,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-036",
+            "degradation_level": 13.3,
+            "lk_imb": 89.0,
+            "cimb": 90.8,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-037",
+            "degradation_level": 8.4,
+            "lk_imb": 90.4,
+            "cimb": 91.9,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-038",
+            "degradation_level": 18.7,
+            "lk_imb": 85.9,
+            "cimb": 88.0,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-039",
+            "degradation_level": 10.7,
+            "lk_imb": 90.0,
+            "cimb": 91.7,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-040",
+            "degradation_level": 15.1,
+            "lk_imb": 87.8,
+            "cimb": 89.6,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-041",
+            "degradation_level": 6.5,
+            "lk_imb": 91.7,
+            "cimb": 92.9,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-042",
+            "degradation_level": 20.3,
+            "lk_imb": 85.1,
+            "cimb": 87.4,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-043",
+            "degradation_level": 2.3,
+            "lk_imb": 94.0,
+            "cimb": 94.7,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-044",
+            "degradation_level": 9.2,
+            "lk_imb": 90.6,
+            "cimb": 92.1,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-045",
+            "degradation_level": 14.9,
+            "lk_imb": 88.0,
+            "cimb": 89.8,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-046",
+            "degradation_level": 22.8,
+            "lk_imb": 84.0,
+            "cimb": 86.6,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-047",
+            "degradation_level": 7.1,
+            "lk_imb": 91.3,
+            "cimb": 92.6,
+            "actual_failure": true
+        },
+        {
+            "sample_id": "FAIL-048",
+            "degradation_level": 17.6,
+            "lk_imb": 86.3,
+            "cimb": 88.5,
+            "actual_failure": true
         }
     ]
 }
