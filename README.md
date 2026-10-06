@@ -209,7 +209,7 @@ Ensure you have the following installed:
 #### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/ansh-0069/NOVARTIS-MASS-BALANCE-CALCULATOR.git
+git clone https://github.com/anxhumandev/NOVARTIS-MASS-BALANCE-CALCULATOR.git
 cd mass-balance
 ```
 
